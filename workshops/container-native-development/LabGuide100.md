@@ -197,11 +197,9 @@ build:
 
 ```
   Key:              Value:
-  DOCKER_EMAIL      Your email address (can be any address)
-  DOCKER_USERNAME   Your Docker Hub username
-  DOCKER_PASSWORD   Your Docker Hub password (check the box for 'protected')
-  DOCKER_REGISTRY   https://registry.hub.docker.com/v2
-  DOCKER_REPO       your-docker-hub-username/twitter-feed
+  DOCKER_USERNAME   <tenancy name>/api.user (e.g. gse00011111/api.user)
+  DOCKER_PASSWORD   <auth_token> for your cluster (check the box for 'protected') - This will be provided to you
+  DOCKER_REPO       <region-code>.ocir.io/<tenancy name>/<registry name> - both <region-code> and <registry name> will be provided 
   PORT              8080
 ```
 
