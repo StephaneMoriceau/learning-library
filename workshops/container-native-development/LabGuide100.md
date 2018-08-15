@@ -251,13 +251,21 @@ push-release:
 - Once the workflow finishes, you'll see both the build and push-release pipelines turn green to indicate success.
 
   ![](images/100/39.1.png)
+  
+- To check that the images pushed successfully to the OCI Registry, login to your OCI instance. Type in a browser https://console.us-ashburn-1.oraclecloud.com/#/a/
 
-- After that happens, switch back to your **Docker Hub** browser tab. You'll see that your twitter-feed repository was pushed to successfully (you may need to refresh the page). Click on the **twitter-feed** repository name.
+![](images/100/40.png)
 
-  ![](images/100/34.png)
+- Choose the menu icon to display the options.
 
-- Click the **Tags** tab to see the image metadata, such as the Git branch and commit hash, as well as the size of the image.
+![](images/100/41.png)
 
-  ![](images/100/33.png)
+- Select Developer Services > Registry (OCIR).
+
+![](images/100/42.png)
+
+- The list of repositories in the OCI Registry is diplayed. Expand the repository to see the images you pushed.
+
+![](images/100/43.png)
 
 **You are now ready to move to the next lab.**
