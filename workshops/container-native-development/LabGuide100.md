@@ -193,7 +193,6 @@ build:
   ![](images/100/31.png)
 
 - Create an environment variable by filling in the **Key** and **Value** boxes and clicking **Add**. Repeat this step for each variable listed below.
-  ![](images/100/32.png)
 
 ```
   Key:              Value:
