@@ -205,25 +205,8 @@ build:
 
   ![](images/100/38.png)
 
-**NOTE**: The Docker email and username variables are required to authenticate to the container registry. The `DOCKER_REPO` must be **all lowercase**.
 
-### **STEP 7**: Create Docker Hub Repository
-
-- In a browser, go to [Docker Hub](https://hub.docker.com) and click on **Create Repository**.
-
-  ![](images/100/36.png)
-
-  **OR**
-
-  ![](images/100/40.png)  
-
-- In the **Name** field, enter `twitter-feed`. Optionally add descriptions and click **Create**
-
-  ![](images/100/37.png)
-
-- Your repository is now ready for Wercker to push a Docker image into during the publish pipeline. Let's configure that now.
-
-### **STEP 8**: Define Wercker Publish Pipeline
+### **STEP 7**: Define Wercker Publish Pipeline
 
 - Switch to your Github browser tab, click on the **wercker.yml** file, and click the **pencil icon** to begin editing.
 
@@ -259,7 +242,7 @@ push-release:
 
   ![](images/100/29.png)
 
-### **STEP 9**: Validate Workflow Execution
+### **STEP 8**: Validate Workflow Execution
 
 - Switch to your Wercker browser tab and click the **Runs** tab within Wercker. You'll see the workflow executing as a result of your Git commit.
 
