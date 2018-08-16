@@ -6,7 +6,7 @@
 
 This is the second of several labs that are part of the **Oracle Public Cloud Container Native Development workshop.** This workshop will walk you through the process of moving an existing application into a containerized CI/CD pipeline and deploying it to a Kubernetes cluster in the Oracle Public Cloud.
 
-You will take on 2 personas during the workshop. The **Lead Developer Persona** will be responsible for configuring the parts of the automated build and deploy process that involve details about the application itself. The **DevOps Engineer Persona** will configure the parts of the automation involving the Kubernetes infrastructure. To containerize and automate the building and deploying of this application you will make use of Wercker Pipelines for CI/CD, Docker Hub for a container registry, and Terraform for provisioning a Kubernetes cluster on Oracle Cloud Infrastructure.
+You will take on 2 personas during the workshop. The **Lead Developer Persona** will be responsible for configuring the parts of the automated build and deploy process that involve details about the application itself. The **DevOps Engineer Persona** will configure the parts of the automation involving the Kubernetes infrastructure. To containerize and automate the building and deploying of this application you will make use of Wercker Pipelines for CI/CD, OCI Registry a container registry, and OKE a managed Kubernetes cluster on Oracle Cloud Infrastructure.
 
 During this lab, you will take on the **DevOps Engineer Persona**. You will provision a Kubernetes cluster and all of the infrastructure that it requires using Terraform. Terraform will provision the Virtual Cloud Network, Load Balancers, Kubernetes Master and Worker instances, and etcd instance required to support your cluster.
 
@@ -16,9 +16,7 @@ During this lab, you will take on the **DevOps Engineer Persona**. You will prov
 
 **Automate Deployment to Kubernetes**
 
-- Create and Deploy to a Kubernetes Cluster
-  - Set Up Oracle Cloud infrastructure
-  - Provision Kubernetes Using Terraform
+- Deploy to a Kubernetes Cluster
   - Configure and Run Wercker Deployment Pipelines
   - Deploy and Test the Product Catalog Application
 
@@ -340,7 +338,7 @@ export PATH=$PATH:`pwd`
 
 ### **STEP 8**: Define Kubernetes Deployment Specification
 
-- From a browser, navigate to your forked twitter-feed repository on GitHub. If you've closed the tab, you can get back by going to [GitHub](https://github.com/), scrolling down until you see the **Your repositories** box on the right side of the page, and clicking the **twitter-feed** link.
+- From a browser, navigate to your forked twitter-feed-oke repository on GitHub. If you've closed the tab, you can get back by going to [GitHub](https://github.com/), scrolling down until you see the **Your repositories** box on the right side of the page, and clicking the **twitter-feed-oke** link.
 
   ![](images/200/25.png)
 
@@ -360,11 +358,10 @@ export PATH=$PATH:`pwd`
 
   >A `.yml` file is a common format for storing Kubernetes configuration data. The `.template` suffix in this file, however, is not a Kubernetes concept. We will use a Wercker step called **bash-template** to process any `.template` files in our project by substituting environment variables into the template wherever `${variables}` appear. You'll add that command to a new pipeline in the next step.
 
-```yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: twitter-feed-v1
+  name: twitter-feed-v2
   labels:
     commit: ${WERCKER_GIT_COMMIT}
 spec:
@@ -384,8 +381,19 @@ spec:
         imagePullPolicy: Always
         ports:
         - name: twitter-feed
-          containerPort: ${PORT}
+          containerPort: 8080
           protocol: TCP
+        volumeMounts:
+          - name: podinfo
+            mountPath: /tmp
+            readOnly: false
+      volumes:
+        - name: podinfo
+          downwardAPI:
+            items:
+            - path: "labels"
+              fieldRef:
+                fieldPath: metadata.labels
       imagePullSecrets:
         - name: wercker
 ---
@@ -399,12 +407,10 @@ metadata:
 spec:
   ports:
   - port: 30000
-    targetPort: ${PORT}
+    targetPort: 8080
   selector:
     app: twitter-feed
   type: ClusterIP
----
-```
 
 - At the bottom of the page, click **Commit new file**
 
@@ -424,8 +430,8 @@ spec:
 
   >The **deploy-to-cluster** Pipeline will prepare our kubernetes.yml file by filling in some environment variables. It will then use kubectl to tell Kubernetes to apply that configuration to our cluster.
 
-```yaml
-#Deploy our container from the Docker Hub to Kubernetes
+
+#Deploy our container from the Oracle Container Registry to the Oracle Container Engine (Kubernetes)
 deploy-to-cluster:
     box:
         id: alpine
@@ -439,13 +445,18 @@ deploy-to-cluster:
         code: cat kubernetes.yml
 
     - kubectl:
+        name: apply namespace    
+        server: $KUBERNETES_MASTER
+        token: $KUBERNETES_TOKEN
+        insecure-skip-tls-verify: true
+        command: apply -f ./ns.yml
+    - kubectl:
         name: deploy to kubernetes
         server: $KUBERNETES_MASTER
         #username: $KUBERNETES_USERNAME
         token: $KUBERNETES_TOKEN
         insecure-skip-tls-verify: true
         command: apply -f kubernetes.yml
-```
 
 - At the bottom of the page, click **Commit new file**
 
@@ -455,7 +466,7 @@ deploy-to-cluster:
 
 ### **STEP 10**: Set up deployment pipelines in Wercker
 
-- Open **[Wercker](https://app.wercker.com)** in a new tab or browser window, or switch to it if you already have it open. In the top navigation bar, click **Pipelines**, then click on your **twitter-feed** application.
+- Open **[Wercker](https://app.wercker.com)** in a new tab or browser window, or switch to it if you already have it open. In the top navigation bar, click **Pipelines**, then click on your **twitter-feed-oke** application.
 
   ![](images/200/30.png)
 
@@ -484,9 +495,18 @@ deploy-to-cluster:
 - Our first step is to set our cluster's authentication token as a Wercker environment variable. In your **terminal window**, run the following command to output the token, then **select it and copy it** to your clipboard:
 
   ```bash
-  terraform output api_server_admin_token
+  cat kubeconfig
   ```
-
+Make a note of the server URL.
+cat kubeconfig file
+Description of the illustration [t4h1.txt]
+Scroll down to see the value for token.
+cat kubeconfig file continued
+Description of the illustration [t4h2.txt]
+Switch to Wercker to create the the following parameters under the Environment tab.
+Key: OKE_MASTER: <server value from kubeconfig>
+Key OKE_TOKEN: <token value from kubeconfig>
+  
 - Back in your Wercker browser tab, click the **Environment** tab. In the key field of the empty row below the last environment variable, enter the key **KUBERNETES_TOKEN**. In the value field, **paste** the token we just copied. Check the **Protected** box and click **Add**.
 
   ![](images/200/37.png)
