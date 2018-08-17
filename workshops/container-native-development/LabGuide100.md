@@ -33,7 +33,7 @@ During this lab, you will take on the **Lead Developer Persona** and work on con
 For this lab you will need Github and Docker Hub Accounts. Use the following links to set up:
 
   - a [GitHub account - https://github.com/join](https://github.com/join)
-  - a [Docker Hub account - https://hub.docker.com](https://hub.docker.com)
+
 
 # Containerize Your Java Application and Automate Builds
 
@@ -43,7 +43,7 @@ For this lab you will need Github and Docker Hub Accounts. Use the following lin
 
 - From any browser, go to:
 
-    [https://github.com/derekoneil/twitter-feed-oke](https://github.com/derekoneil/twitter-feed-oke)
+    [https://github.com/StephaneMoriceau/twitter-feed-oke](https://github.com/StephaneMoriceau/twitter-feed-oke)
 
 - Click **Fork** in the upper right hand corner of the browser. **Sign in** if prompted.
 
@@ -214,7 +214,7 @@ build:
 - After the definition of the build pipeline, **paste** the following YAML:
 
 ```yaml
-#Push the docker image with our built and tested application to Docker Hub
+#Push the docker image with our built and tested application to the Oracle Container Registry
 push-release:
   steps:
     - internal/docker-push:
@@ -222,10 +222,9 @@ push-release:
         password: $DOCKER_PASSWORD
         repository: $DOCKER_REPO
         registry: $DOCKER_REGISTRY
-        tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
+        tag: $WERCKER_GIT_COMMIT
         working-dir: /pipeline/source
         ports: $PORT
-        env: PORT=$PORT
         cmd: sh target/bin/start
 ```
 
