@@ -70,10 +70,9 @@ You will take on 2 personas during the workshop. The **Lead Developer Persona**
   >A `.yml` file is a common format for storing Kubernetes configuration data. The `.template` suffix in this file, however, is not a Kubernetes concept. We will use a Wercker step called **bash-template** to process any `.template` files in our project by substituting environment variables into the template wherever `${variables}` appear. You'll add that command to a new pipeline in the next step.
 
 ```bash
-apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: twitter-feed-v2
+  name: twitter-feed-v1
   labels:
     commit: ${WERCKER_GIT_COMMIT}
 spec:
@@ -86,7 +85,6 @@ spec:
       labels:
         app: twitter-feed
         commit: ${WERCKER_GIT_COMMIT}
-        color: green
     spec:
       containers:
       - name: twitter-feed
@@ -96,17 +94,6 @@ spec:
         - name: twitter-feed
           containerPort: 8080
           protocol: TCP
-        volumeMounts:
-          - name: podinfo
-            mountPath: /tmp
-            readOnly: false
-      volumes:
-        - name: podinfo
-          downwardAPI:
-            items:
-            - path: "labels"
-              fieldRef:
-                fieldPath: metadata.labels
       imagePullSecrets:
         - name: $OKE_IMAGESECRET
 ---
@@ -123,7 +110,6 @@ spec:
     targetPort: 8080
   selector:
     app: twitter-feed
-    color: green
   type: ClusterIP
 ---
 ```
