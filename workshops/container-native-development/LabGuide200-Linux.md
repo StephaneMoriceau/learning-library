@@ -63,7 +63,7 @@ You will take on 2 personas during the workshop. The **Lead Developer Persona**
 
 - **Copy** the YAML below and **paste** it into the file editor.
 
-  >This configuration consists of two parts. The first section (up to line 28) defines a **Deployment**, which tells Kubernetes about the application we want to deploy. In this Deployment we instruct Kubernetes to create two Pods (`replicas: 2`) that will run our application. Within those pods, we specify that we want one Docker container to be run, and compose the link to the image for that container using environment variables specific to this workflow execution (`image: ${DOCKER_REPO}:${WERCKER_GIT_BRANCH}-${WERCKER_GIT_COMMIT}`).
+  >This configuration consists of two parts. The first section (up to line 28) defines a **Deployment**, which tells Kubernetes about the application we want to deploy. In this Deployment we instruct Kubernetes to create two Pods (`replicas: 2`) that will run our application. Within those pods, we specify that we want one Docker container to be run, and compose the link to the image for that container using environment variables specific to this workflow execution (`image: ${DOCKER_REPO}:${WERCKER_GIT_COMMIT}`).
 
   >The second part of the file defines a **Service**. A Service defines how Kubernetes should expose our application to traffic from outside the cluster. In this case, we are asking for a cluster-internal IP address to be assigned (`type: ClusterIP`). This means that our twitter feed will only be accessible from inside the cluster. This is ok, because the twitter feed will be consumed by the product catalog application that we will deploy later. We can still verify that our twitter feed is deployed properly -- we'll see how in a later step.
 
@@ -90,7 +90,7 @@ spec:
     spec:
       containers:
       - name: twitter-feed
-        image: $DOCKER_REPO:$WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
+        image: $DOCKER_REPO:$WERCKER_GIT_COMMIT
         imagePullPolicy: Always
         ports:
         - name: twitter-feed
@@ -147,7 +147,7 @@ spec:
 
   ```bash
   #Deploy our container from the Oracle Container Registry to the Oracle Container Engine (Kubernetes)
-  deploy-to-cluster:
+deploy-to-cluster:
     box:
         id: alpine
         cmd: /bin/sh
@@ -165,6 +165,18 @@ spec:
         token: $KUBERNETES_TOKEN
         insecure-skip-tls-verify: true
         command: apply -f ./ns.yml
+    - kubectl:
+        name: delete OCR secret
+        server: $KUBERNETES_MASTER
+        token: $KUBERNETES_TOKEN
+        insecure-skip-tls-verify: true
+        command: delete secret okeworkshop --namespace=$NS --ignore-not-found=true
+    - kubectl:
+        name: create OCR secret
+        server: $KUBERNETES_SERVER
+        token: $KUBERNETES_TOKEN
+        insecure-skip-tls-verify: true
+        command: create secret docker-registry okeworkshop --docker-server=iad.ocir.io --docker-username=$DOCKER_USERNAME --docker-password="$DOCKER_PASSWORD" --docker-email=${WERCKER_APPLICATION+OWNER_NAME}@mail.com --namespace="$NS"
     - kubectl:
         name: deploy to kubernetes
         server: $KUBERNETES_MASTER
@@ -219,11 +231,13 @@ Key OKE_TOKEN: <token value from kubeconfig>
   
 - Back in your Wercker browser tab, click the **Environment** tab. In the key field of the empty row below the last environment variable, enter the key **KUBERNETES_TOKEN**. In the value field, **paste** the token we just copied. Check the **Protected** box and click **Add**.
 
-  ![](images/200/37.png)
+  ![](images/200/37.1.png)
 
-- The other environment variable we need to add is the address of the Kubernetes master we want to deploy to. In your Wercker browser tab, add a new environment variable with the key **KUBERNETES_MASTER**. In the value field, **paste** the value you copied from `kubeconfig` file. The value **must start with https://** for Wercker to communicate with the cluster. When finished, click **Add**.
+- The other environment variable we need to add are:
 
-  ![](images/200/55.png)
+    - the address of the Kubernetes master we want to deploy to. In your Wercker browser tab, add a new environment variable with the key **KUBERNETES_MASTER**. In the value field, **paste** the value you copied from `kubeconfig` file. The value **must start with https://** for Wercker to communicate with the cluster. When finished, click **Add**.
+    - your name space (please choose a unique name), add a new environment variable with the key **NS**. When finished, click **Add**.
+    - the secret key to pull the image from OCIR, add a new environment variable with the key **OKE_IMAGESECRET** and type 'okeworkshop'. When finished, click **Add**.
 
 - Now we're ready to try out our workflow from start to finish. We could do that by making another commit on GitHub, since Wercker is monitoring our source code. We can also trigger a workflow execution right from Wercker. We'll see how in the next step.
 
