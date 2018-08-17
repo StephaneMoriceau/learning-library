@@ -147,7 +147,7 @@ spec:
 
   ```bash
   #Deploy our container from the Oracle Container Registry to the Oracle Container Engine (Kubernetes)
-deploy-to-cluster:
+  deploy-to-cluster:
     box:
         id: alpine
         cmd: /bin/sh
