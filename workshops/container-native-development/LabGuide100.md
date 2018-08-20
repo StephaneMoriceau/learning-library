@@ -33,7 +33,7 @@ During this lab, you will take on the **Lead Developer Persona** and work on con
 For this lab you will need Github and Docker Hub Accounts. Use the following links to set up:
 
   - a [GitHub account - https://github.com/join](https://github.com/join)
-  - a [Docker Hub account - https://hub.docker.com](https://hub.docker.com)
+
 
 # Containerize Your Java Application and Automate Builds
 
@@ -43,7 +43,7 @@ For this lab you will need Github and Docker Hub Accounts. Use the following lin
 
 - From any browser, go to:
 
-    [https://github.com/derekoneil/twitter-feed](https://github.com/derekoneil/twitter-feed)
+    [https://github.com/StephaneMoriceau/twitter-feed-oke](https://github.com/StephaneMoriceau/twitter-feed-oke)
 
 - Click **Fork** in the upper right hand corner of the browser. **Sign in** if prompted.
 
@@ -193,39 +193,19 @@ build:
   ![](images/100/31.png)
 
 - Create an environment variable by filling in the **Key** and **Value** boxes and clicking **Add**. Repeat this step for each variable listed below.
-  ![](images/100/32.png)
 
 ```
   Key:              Value:
-  DOCKER_EMAIL      Your email address (can be any address)
-  DOCKER_USERNAME   Your Docker Hub username
-  DOCKER_PASSWORD   Your Docker Hub password (check the box for 'protected')
-  DOCKER_REGISTRY   https://registry.hub.docker.com/v2
-  DOCKER_REPO       your-docker-hub-username/twitter-feed
+  DOCKER_USERNAME   <tenancy name>/api.user (e.g. gse00011111/api.user)
+  DOCKER_PASSWORD   <auth_token> for your cluster (check the box for 'protected') - <auth_token> will be provided to you
+  DOCKER_REPO       <region-code>.ocir.io/<tenancy name>/<registry name> - both <region-code> and <registry name> will be provided 
   PORT              8080
 ```
 
   ![](images/100/38.png)
 
-**NOTE**: The Docker email and username variables are required to authenticate to the container registry. The `DOCKER_REPO` must be **all lowercase**.
 
-### **STEP 7**: Create Docker Hub Repository
-
-- In a browser, go to [Docker Hub](https://hub.docker.com) and click on **Create Repository**.
-
-  ![](images/100/36.png)
-
-  **OR**
-
-  ![](images/100/40.png)  
-
-- In the **Name** field, enter `twitter-feed`. Optionally add descriptions and click **Create**
-
-  ![](images/100/37.png)
-
-- Your repository is now ready for Wercker to push a Docker image into during the publish pipeline. Let's configure that now.
-
-### **STEP 8**: Define Wercker Publish Pipeline
+### **STEP 7**: Define Wercker Publish Pipeline
 
 - Switch to your Github browser tab, click on the **wercker.yml** file, and click the **pencil icon** to begin editing.
 
@@ -234,7 +214,7 @@ build:
 - After the definition of the build pipeline, **paste** the following YAML:
 
 ```yaml
-#Push the docker image with our built and tested application to Docker Hub
+#Push the docker image with our built and tested application to the Oracle Container Registry
 push-release:
   steps:
     - internal/docker-push:
@@ -242,10 +222,9 @@ push-release:
         password: $DOCKER_PASSWORD
         repository: $DOCKER_REPO
         registry: $DOCKER_REGISTRY
-        tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
+        tag: $WERCKER_GIT_COMMIT
         working-dir: /pipeline/source
         ports: $PORT
-        env: PORT=$PORT
         cmd: sh target/bin/start
 ```
 
@@ -261,7 +240,7 @@ push-release:
 
   ![](images/100/29.png)
 
-### **STEP 9**: Validate Workflow Execution
+### **STEP 8**: Validate Workflow Execution
 
 - Switch to your Wercker browser tab and click the **Runs** tab within Wercker. You'll see the workflow executing as a result of your Git commit.
 
@@ -270,13 +249,21 @@ push-release:
 - Once the workflow finishes, you'll see both the build and push-release pipelines turn green to indicate success.
 
   ![](images/100/39.1.png)
+  
+- To check that the images pushed successfully to the OCI Registry, login to your OCI instance. Type in a browser https://console.us-ashburn-1.oraclecloud.com/#/a/
 
-- After that happens, switch back to your **Docker Hub** browser tab. You'll see that your twitter-feed repository was pushed to successfully (you may need to refresh the page). Click on the **twitter-feed** repository name.
+![](images/100/40.png)
 
-  ![](images/100/34.png)
+- Choose the menu icon to display the options.
 
-- Click the **Tags** tab to see the image metadata, such as the Git branch and commit hash, as well as the size of the image.
+![](images/100/41.png)
 
-  ![](images/100/33.png)
+- Select Developer Services > Registry (OCIR).
+
+![](images/100/42.png)
+
+- The list of repositories in the OCI Registry is diplayed. Expand the repository to see the images you pushed.
+
+![](images/100/43.png)
 
 **You are now ready to move to the next lab.**
