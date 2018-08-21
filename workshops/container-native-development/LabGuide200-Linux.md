@@ -127,9 +127,9 @@ spec:
 
   >The **deploy-to-cluster** Pipeline will prepare our kubernetes.yml file by filling in some environment variables. It will then use kubectl to tell Kubernetes to apply that configuration to our cluster.
 
-  ```yaml
-  #Deploy our container from the Oracle Container Registry to the Oracle Container Engine (Kubernetes)
-  deploy-to-cluster:
+```yaml
+#Deploy our container from the Docker Hub to Kubernetes
+deploy-to-cluster:
     box:
         id: alpine
         cmd: /bin/sh
