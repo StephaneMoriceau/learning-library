@@ -128,7 +128,6 @@ spec:
   >The **deploy-to-cluster** Pipeline will prepare our kubernetes.yml file by filling in some environment variables. It will then use kubectl to tell Kubernetes to apply that configuration to our cluster.
 
 ```yaml
-#Deploy our container from the Docker Hub to Kubernetes
 deploy-to-cluster:
     box:
         id: alpine
@@ -165,7 +164,8 @@ deploy-to-cluster:
         token: $KUBERNETES_TOKEN
         insecure-skip-tls-verify: true
         command: apply -f ./kubernetes.yml --namespace=$NS
-  ```
+ ---
+ ```
 - At the bottom of the page, click **Commit new file**
 
   ![](images/200/29.png)
