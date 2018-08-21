@@ -23,11 +23,6 @@ You will take on 2 personas during the workshop. The **Lead Developer Persona**
 - The following lab requires:
   - an Oracle Public Cloud account that will be supplied by your instructor, or a Trial Account
 
-
-# Provision Kubernetes Using Terraform
-
-## Set Up Oracle Cloud infrastructure
-
 ### **STEP 1**: Confirm access and health of the Kubernetes cluster provisioned on your behalf by the instructer
 
 - During provisioning, OKE generated a `kubeconfig` file that will authenticate you to the cluster. Download the `kubeconfig` file on your laptop ina directory of your cloise from the ubs key provided by the instructor.
@@ -69,7 +64,8 @@ You will take on 2 personas during the workshop. The **Lead Developer Persona**
 
   >A `.yml` file is a common format for storing Kubernetes configuration data. The `.template` suffix in this file, however, is not a Kubernetes concept. We will use a Wercker step called **bash-template** to process any `.template` files in our project by substituting environment variables into the template wherever `${variables}` appear. You'll add that command to a new pipeline in the next step.
 
-```bash
+```yaml
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: twitter-feed-v1
@@ -131,7 +127,7 @@ spec:
 
   >The **deploy-to-cluster** Pipeline will prepare our kubernetes.yml file by filling in some environment variables. It will then use kubectl to tell Kubernetes to apply that configuration to our cluster.
 
-  ```bash
+  ```yaml
   #Deploy our container from the Oracle Container Registry to the Oracle Container Engine (Kubernetes)
   deploy-to-cluster:
     box:
