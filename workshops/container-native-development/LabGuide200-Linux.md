@@ -33,7 +33,7 @@ You will take on 2 personas during the workshop. The **Lead Developer Persona**
   export KUBECONFIG=<path>/kubeconfig
   kubectl proxy
   ```
-- With the proxy server running, navigate to the [Kubernetes Dashboard by Right Clicking on this link](http://localhost:8001/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/), and choosing 'open in a new browser tab'.
+- With the proxy server running, navigate to the [Kubernetes Dashboard by Right Clicking on this link](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login), and choosing 'open in a new browser tab'.
 
   ![](images/200/64.png)
 
@@ -249,7 +249,7 @@ Key OKE_TOKEN: <token value from kubeconfig>
   kubectl proxy
   ```
 
-- In a browser tab, navigate to the [**Kubernetes dashboard**](http://localhost:8001/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/)
+- In a browser tab, navigate to the [**Kubernetes dashboard**](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login)
 
 - You should see the overview page. In the pods section, you should see two twitter-feed pods running. Click the **name of one of the pods** to go to the detail page.
 
@@ -291,7 +291,7 @@ Key OKE_TOKEN: <token value from kubeconfig>
 
 ### **STEP 9**: Deploy and test the Product Catalog using the Kubernetes dashboard
 
-- Switch back to your **Kubernetes dashboard** browser tab. If you have closed it, navigate to the Kubernetes dashboard at [**Kubernetes dashboard**](http://localhost:8001/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/)
+- Switch back to your **Kubernetes dashboard** browser tab. If you have closed it, navigate to the Kubernetes dashboard at [**Kubernetes dashboard**](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login)
 
 - In the upper right corner of the dashboard, click **Create**.
 
