@@ -138,7 +138,7 @@ This selector will instruct your load balancer to only route traffic to the blue
 
   ![](images/400/9.png)
 
-- Once the workflow has finished, navigate to the [**Kubernetes dashboard**](http://localhost:8001/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/) in a new tab. On the **Overview** page, note that you now have four twitter-feed pods, two blue v1 pods, and two green v2 pods.
+- Once the workflow has finished, navigate to the [**Kubernetes dashboard**](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login) in a new tab. On the **Overview** page, note that you now have four twitter-feed pods, two blue v1 pods, and two green v2 pods.
 
   ![](images/400/16.png)
 
@@ -150,7 +150,7 @@ This selector will instruct your load balancer to only route traffic to the blue
 
 - To cut over to our green deployment, we will use the Kubernetes dashboard GUI to alter the Kubernetes Service that exposes our twitter feed microservice. In a production setting, you could perform this switch in a number of ways. It could be handled by scripting the commands directly using kubectl, by altering the service definition in version control and having Wercker apply it, or by using a different automation framework such as Jenkins.
 
-- Navigate or switch tabs to the [**Kubernetes dashboard**](http://localhost:8001/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/). In the left side navigation menu, click **Services**, then click on the **twitter-feed** service.
+- Navigate or switch tabs to the [**Kubernetes dashboard**](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login). In the left side navigation menu, click **Services**, then click on the **twitter-feed** service.
 
   ![](images/400/17.png)
 
