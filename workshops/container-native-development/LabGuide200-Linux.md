@@ -141,14 +141,6 @@ deploy-to-cluster:
     - script:
         name: "Visualise Kubernetes config"
         code: cat kubernetes.yml
-
-    - kubectl:
-        name: deploy to kubernetes
-        server: $KUBERNETES_MASTER
-        #username: $KUBERNETES_USERNAME
-        token: $KUBERNETES_TOKEN
-        insecure-skip-tls-verify: true
-        command: apply -f kubernetes.yml
         
     - kubectl:
         name: apply namespace    
@@ -178,51 +170,6 @@ deploy-to-cluster:
         insecure-skip-tls-verify: true
         command: apply -f ./kubernetes.yml --namespace=$NS
 ```
-
->The **deploy-to-cluster** Pipeline will prepare our kubernetes.yml file by filling in some environment variables. It will then use kubectl to tell Kubernetes to apply that configuration to our cluster.
-
-```yaml
-#Deploy our container to Kubernetes Stephane
-deploy-to-cluster:
-    box:
-        id: alpine
-        cmd: /bin/sh
-    steps:
-    
-    - bash-template
-    
-    - script:
-        name: "Visualise Kubernetes config"
-        code: cat kubernetes.yml
-        
-    - kubectl:
-        name: apply namespace    
-        server: $KUBERNETES_MASTER
-        token: $KUBERNETES_TOKEN
-        insecure-skip-tls-verify: true
-        command: apply -f ./ns.yml
-        
-    - kubectl:
-        name: delete OCR secret
-        server: $KUBERNETES_MASTER
-        token: $KUBERNETES_TOKEN
-        insecure-skip-tls-verify: true
-        command: delete secret okeworkshop --namespace=$NS --ignore-not-found=true
-        
-    - kubectl:
-        name: create OCR secret
-        server: $KUBERNETES_SERVER
-        token: $KUBERNETES_TOKEN
-        insecure-skip-tls-verify: true
-        command: create secret docker-registry okeworkshop --docker-server=iad.ocir.io --docker-username=$DOCKER_USERNAME --docker-password="$DOCKER_PASSWORD" --docker-email=${WERCKER_APPLICATION+OWNER_NAME}@mail.com --namespace="$NS"
-        
-    - kubectl:
-        name: deploy to kubernetes
-        server: $KUBERNETES_MASTER
-        token: $KUBERNETES_TOKEN
-        insecure-skip-tls-verify: true
-        command: apply -f ./kubernetes.yml --namespace=$NS
- ```
  
 - At the bottom of the page, click **Commit new file**
 
