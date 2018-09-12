@@ -127,20 +127,17 @@ spec:
 
   >The **deploy-to-cluster** Pipeline will prepare our kubernetes.yml file by filling in some environment variables. It will then use kubectl to tell Kubernetes to apply that configuration to our cluster.
 
-```
-#Deploy our container to Kubernetes
+```yaml
+#Deploy our container to Kubernetes Stephane
 deploy-to-cluster:
     box:
         id: alpine
         cmd: /bin/sh
     steps:
-    
     - bash-template
-
     - script:
         name: "Visualise Kubernetes config"
         code: cat kubernetes.yml
-
     - kubectl:
         name: apply namespace    
         server: $KUBERNETES_MASTER
