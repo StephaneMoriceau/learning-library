@@ -171,7 +171,7 @@ deploy-to-cluster:
         command: apply -f ./kubernetes.yml --namespace=$NS
 ```
  
-- At the bottom of the page, click **Commit new file**
+- At the bottom of the page, click **Commit changes**
 
   ![](images/200/29.png)
 
