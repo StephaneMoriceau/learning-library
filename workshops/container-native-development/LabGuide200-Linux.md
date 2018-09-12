@@ -129,7 +129,7 @@ spec:
 
 
 ```yaml
-#Deploy our container from the Docker Hub to Kubernetes
+#Deploy our container from the Oracle Container Registry to the Oracle Container Engine (Kubernetes)
 deploy-to-cluster:
     box:
         id: alpine
