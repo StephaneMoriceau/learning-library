@@ -70,7 +70,7 @@ During this lab, you will take on the **Lead Developer Persona** and extend your
 
 - With the function deployed to our local Fn Server, we can use **curl** to test it. Execute the following command while still in the image-resize directory in your terminal window:
 
-`curl -X POST --data-binary @"sample-image.jpg" -H "Content-Type: application/octet-stream" http://localhost:8080/r/imgconvert/resize128 > thumbnail.jpg`
+`curl -X POST --data-binary @"sample-image.jpg" -H "Content-Type: application/octet-stream" http://localhost:8080/t/imgconvert/resize128 > thumbnail.jpg`
 
   ![](images/500/12.png)
 
