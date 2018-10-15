@@ -81,7 +81,7 @@ cd ~ && git clone https://github.com/derekoneil/image-resize.git && cd image-res
 
 - With the function deployed to our local Fn Server, we can use **curl** to test it. Execute the following command while still in the image-resize directory in your terminal window:
 
-`curl -X POST --data-binary @"sample-image.jpg" -H "Content-Type: application/octet-stream" http://localhost:8080/r/imgconvert/resize128 > thumbnail.jpg`
+`curl -X POST --data-binary @"sample-image.jpg" -H "Content-Type: application/octet-stream" http://localhost:8080/t/imgconvert/resize128 > thumbnail.jpg`
 
   ![](images/500/12.png)
 
@@ -114,8 +114,7 @@ cd ~ && git clone https://github.com/derekoneil/image-resize.git && cd image-res
   **NOTE**: `kubectl` needs to be in your PATH for Helm to run. A good test to see if kubectl is in your path is to type: `which kubectl`. If you did not modify your system PATH when you installed kubectl in lab 200, you can run `export PATH=$PATH:/the/directory/where/you/downloaded/kubectl` to alter the path in this shell. Do this before running `helm init` below.
 
   ```bash
-  cd ~/terraform-kubernetes-installer
-  export KUBECONFIG=`pwd`/generated/kubeconfig
+  export KUBECONFIG=<path>/kubeconfig
   cd ~/Downloads
   mkdir helm
   tar -xf helm-v2.7.2-linux-amd64.tar.gz -C helm
