@@ -134,11 +134,11 @@ cd ~ && git clone https://github.com/derekoneil/image-resize.git && cd image-res
 
 - Retrieve the correct version of the Helm chart by running the following command:
 
-  `git checkout 4e4988`
+  `git checkout 7c05ce3`
 
-- Specify the version of Fn we want to install by modifying the `values.yaml` file using this command:
+- The default chart will install fn as a private service inside your cluster with ephemeral storage, to configure a public endpoint and persistent storage you should look at values.yaml and modify the default settings. An example for Oracle Cloud Infrastructure is here. Specify the parameters for Oracle Cloud Infrastructure by modifying the `values.yaml` file using this command:
 
-  `sed -i.bak 's/fnproject\/fnserver:latest/fnproject\/fnserver:0.3.327/' fn/values.yaml`
+  `awk '/annotations/{c++;if(c == 1 || c ==2) {sub("annotations: {}", "annotations: service.beta.kubernetes.io\/oci-load-balancer-shape: 400Mbps")}}1' fn/values.yaml > fn/values.yml`
 
 - Prepare the **dependencies** of the Fn chart by running:
 
@@ -187,7 +187,7 @@ cd ~ && git clone https://github.com/derekoneil/image-resize.git && cd image-res
 
     ![](images/500/17.png)
 
-### **STEP 8**: Deploy Your Function to Fn Server on Kubernetes
+### **STEP 7**: Deploy Your Function to Fn Server on Kubernetes
 
 - In the same **terminal window** from the previous step, change directories to cloned function directory from **STEP 2**.
 
