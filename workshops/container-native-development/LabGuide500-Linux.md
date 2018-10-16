@@ -136,7 +136,7 @@ cd ~ && git clone https://github.com/derekoneil/image-resize.git && cd image-res
 
   `git checkout 7c05ce3`
 
-- The default chart will install fn as a private service inside your cluster with ephemeral storage, to configure a public endpoint and persistent storage you should look at values.yaml and modify the default settings. An example for Oracle Cloud Infrastructure is here. Specify the parameters for Oracle Cloud Infrastructure by modifying the `values.yaml` file using this command:
+- The default chart will install fn as a private service inside your cluster with ephemeral storage, to configure a public endpoint and persistent storage you should look at values.yaml and modify the default settings. Specify the settings for Oracle Cloud Infrastructure by modifying the `values.yaml` file using this command:
 
   `awk '/annotations/{c++;if(c == 1 || c ==2) {sub("annotations: {}", "annotations: service.beta.kubernetes.io\/oci-load-balancer-shape: 400Mbps")}}1' fn/values.yaml > fn/values.yml`
 
