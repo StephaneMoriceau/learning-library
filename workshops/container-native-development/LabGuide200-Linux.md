@@ -25,9 +25,9 @@ You will take on 2 personas during the workshop. The **Lead Developer Persona**
 
 ### **STEP 1**: Confirm access and health of the Kubernetes cluster provisioned on your behalf by the instructer
 
-- During provisioning, OKE generated a `kubeconfig` file that will authenticate you to the cluster. Download the `kubeconfig` file on your laptop ina directory of your cloise from the ubs key provided by the instructor.
+- During provisioning, OKE generated a `kubeconfig` file that will authenticate you to the cluster. Download the `kubeconfig` file on your laptop in a directory of your choice from the USB key provided by the instructor.
 
-- In other to monitor your cluser you will need to set an environment variable to point `kubectl` to the location of your `kubeconfig` file. Let's set the environment variable, then start the Kubernetes proxy server, which will let you view the cluster dashboard at a localhost URL. Type the following comands in a terminal window.
+- In order to monitor your cluser you will need to set an environment variable to point `kubectl` to the location of your `kubeconfig` file. Let's set the environment variable, then start the Kubernetes proxy server, which will let you view the cluster dashboard at a localhost URL. Type the following comands in a terminal window.
 
   ```bash
   export KUBECONFIG=<path>/kubeconfig
