@@ -27,6 +27,8 @@ You will take on 2 personas during the workshop. The **Lead Developer Persona**
 
 - During provisioning, OKE generated a `kubeconfig` file that will authenticate you to the cluster. Download the `kubeconfig` file on your laptop in a directory of your choice from the USB key provided by the instructor.
 
+- _Install kubectl_. Terraform requires `kubectl` - the Kubernetes command line interface, to interact with Kubernetes from your local machine. You can install it by following the instructions for **Install kubcectl** for mac, windows, or linux **[Kubernetes docs](https://kubernetes.io/docs/tasks/tools/install-kubectl/)**.
+
 - In order to monitor your cluser you will need to set an environment variable to point `kubectl` to the location of your `kubeconfig` file. Let's set the environment variable, then start the Kubernetes proxy server, which will let you view the cluster dashboard at a localhost URL. Type the following comands in a terminal window.
 
   ```bash
