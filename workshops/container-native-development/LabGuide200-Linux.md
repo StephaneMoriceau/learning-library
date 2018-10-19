@@ -37,13 +37,11 @@ You will take on 2 personas during the workshop. The **Lead Developer Persona**
   ```
 - With the proxy server running, navigate to the [Kubernetes Dashboard by Right Clicking on this link](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login), and choosing 'open in a new browser tab'. 
 
-  First authenticate yourself: **Select** the Kubeconfig option and **Click** on "Choose Kubeconfig File" as per the below screen capture.
-  
-  **Navigate** to the kubeconfig file on your local machine and **Click** Choose
+- First authenticate yourself: **Select** the Kubeconfig option and **Click** on "Choose Kubeconfig File" as per the below screen capture.
 
   ![](images/200/75.png)
   
-  **Navigate** to the kubeconfig file on your local machine and **Click** Choose
+- Then **Navigate** to the kubeconfig file on your local machine and **Click** Choose. The Kubenertes Dashboard opens as paer the below screen capture.
   
   ![](images/200/64.png)
 
