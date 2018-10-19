@@ -35,8 +35,16 @@ You will take on 2 personas during the workshop. The **Lead Developer Persona**
   export KUBECONFIG=<path>/kubeconfig
   kubectl proxy
   ```
-- With the proxy server running, navigate to the [Kubernetes Dashboard by Right Clicking on this link](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login), and choosing 'open in a new browser tab'.
+- With the proxy server running, navigate to the [Kubernetes Dashboard by Right Clicking on this link](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login), and choosing 'open in a new browser tab'. 
 
+  First authenticate yourself: **Select** the Kubeconfig option and **Click** on "Choose Kubeconfig File" as per the below screen capture.
+  
+  **Navigate** to the kubeconfig file on your local machine and **Click** Choose
+
+  ![](images/200/75.png)
+  
+  **Navigate** to the kubeconfig file on your local machine and **Click** Choose
+  
   ![](images/200/64.png)
 
 - Great! We've got Kubernetes installed and accessible -- now we're ready to get our microservice deployed to the cluster. The next step is to tell Wercker how and where we would like to deploy our application. In your **terminal window**, press **Control-C** to terminate `kubectl proxy`. We will need the terminal window to gather some cluster info in another step. We'll start the proxy again later.
