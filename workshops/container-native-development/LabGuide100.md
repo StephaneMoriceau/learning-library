@@ -192,15 +192,16 @@ build:
 
   ![](images/100/31.png)
 
-- Create an environment variable by filling in the **Key** and **Value** boxes and clicking **Add**. Repeat this step for each variable listed below.
+- Create an environment variable by filling in the **Key** and **Value** boxes and clicking **Add**. Repeat this step for each variable listed below. **Note: <tenancy-name>, <auth-token>, <region-code>, <registry-name> will be provided by the instructor**
 
 ```
   Key:              Value:
-  DOCKER_USERNAME   <tenancy name>/api.user (e.g. gse00011111/api.user)
-  DOCKER_PASSWORD   <auth_token> for your cluster (check the box for 'protected') - <auth_token> will be provided to you
-  DOCKER_REPO       <region-code>.ocir.io/<tenancy name>/<registry name> - both <region-code> and <registry name> will be provided 
+  DOCKER_USERNAME   <tenancy-name>/api.user (e.g. gse00011111/api.user)
+  DOCKER_PASSWORD   <auth-token> for your cluster (check the box for 'protected')
+  DOCKER_REPO       <region-code>.ocir.io/<tenancy-name>/<registry-name>
   PORT              8080
 ```
+
 
   ![](images/100/38.png)
 
