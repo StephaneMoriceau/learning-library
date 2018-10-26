@@ -192,7 +192,7 @@ build:
 
   ![](images/100/31.png)
 
-- Create an environment variable by filling in the **Key** and **Value** boxes and clicking **Add**. Repeat this step for each variable listed below. **Note: <tenancy-name>, <auth-token>, <region-code>, <registry-name> will be provided by the instructor**
+- Create an environment variable by filling in the **Key** and **Value** boxes and clicking **Add**. Repeat this step for each variable listed below. **Note: the values of tenancy-name, auth-token, region-code, and registry-name will be provided by the instructor**
 
 ```
   Key:              Value:
