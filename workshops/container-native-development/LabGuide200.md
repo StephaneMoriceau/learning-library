@@ -221,17 +221,21 @@ deploy-to-cluster:
   ![](images/200/kubeconfig.png)
 
 - Switch to Wercker to create the the following parameters under the Environment tab.
-Key: OKE_MASTER: <server value from kubeconfig>
-Key OKE_TOKEN: <token value from kubeconfig>
+Key: KUBERNETES_MASTER: <server value from kubeconfig>
+Key: KUBERNETES_TOKEN: <token value from kubeconfig>
   
-- Back in your Wercker browser tab, click the **Environment** tab. In the key field of the empty row below the last environment variable, enter the key **KUBERNETES_TOKEN**. In the value field, **paste** the token we just copied. Check the **Protected** box and click **Add**.
+- Back in your Wercker browser tab, click the **Environment** tab. 
+
+- In the key field of the empty row below the last environment variable, enter the key **KUBERNETES_TOKEN**. In the value field, **paste** the token from the kubeconfig file we just copied. Check the **Protected** box and click **Add**.
 
   ![](images/200/37.1.png)
 
-- The other environment variable we need to add are:
+- The other 3 environment variables we need to add are:
 
     - the address of the Kubernetes master we want to deploy to. In your Wercker browser tab, add a new environment variable with the key **KUBERNETES_MASTER**. In the value field, **paste** the value you copied from `kubeconfig` file. The value **must start with https://** for Wercker to communicate with the cluster. When finished, click **Add**.
+    
     - your name space (please choose a unique name), add a new environment variable with the key **NS**. When finished, click **Add**.
+    
     - the secret key to pull the image from OCIR, add a new environment variable with the key **OKE_IMAGESECRET** and type 'okeworkshop'. When finished, click **Add**.
 
 - Now we're ready to try out our workflow from start to finish. We could do that by making another commit on GitHub, since Wercker is monitoring our source code. We can also trigger a workflow execution right from Wercker. We'll see how in the next step.
