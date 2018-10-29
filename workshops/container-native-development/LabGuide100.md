@@ -251,7 +251,7 @@ push-release:
 
   ![](images/100/39.1.png)
   
-- To check that the images pushed successfully to the OCI Registry, login to your OCI instance. Type in a browser https://console.us-ashburn-1.oraclecloud.com/#/a/
+- To check that the images pushed successfully to the OCI Registry, login to your OCI instance. Type in a browser https://console.us-ashburn-1.oraclecloud.com/#/a/ **Note: the api.user password will be provided by the instructor **
 
 ![](images/100/40.png)
 
