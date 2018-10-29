@@ -220,9 +220,6 @@ deploy-to-cluster:
   ```
   ![](images/200/kubeconfig.png)
 
-- Switch to Wercker to create the the following parameters under the Environment tab.
-Key: KUBERNETES_MASTER: <server value from kubeconfig>
-Key: KUBERNETES_TOKEN: <token value from kubeconfig>
   
 - Back in your Wercker browser tab, click the **Environment** tab. 
 
