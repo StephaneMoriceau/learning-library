@@ -49,7 +49,7 @@
             },
             {
                 "number": "500",
-                "filename": "LabGuide500-Linux.md",
+                "filename": "LabGuide500.md",
                 "title": "Lab 500: Extend Your Application with a Function",
                 "description": "Install Fn in Kubernetes and Deploy a Function",
                 "labels": {"version": "Laptop/Desktop Local Install"}
