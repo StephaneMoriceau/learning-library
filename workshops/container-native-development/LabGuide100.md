@@ -198,6 +198,7 @@ build:
   Key:              Value:
   DOCKER_USERNAME   <tenancy-name>/api.user (e.g. gse00011111/api.user)
   DOCKER_PASSWORD   <auth-token> for your cluster (check the box for 'protected')
+  DOCKER_REGISTRY   <region-code>.ocir.io
   DOCKER_REPO       <region-code>.ocir.io/<tenancy-name>/<registry-name>
   PORT              8080
 ```
